@@ -1,6 +1,7 @@
 // =============================================================
 // Create the Express app instance
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 // =============================================================
