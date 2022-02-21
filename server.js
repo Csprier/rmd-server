@@ -1,35 +1,14 @@
-const { Client } = require('pg');
+// const { Client } = require('pg');
 const express = require('express');
 const app = express();
 const PORT = 8080;
-
-// // Connect to psql
-// const client = new Client({
-//   password: 'root',
-//   user: 'root',
-//   host: 'database'
-// });
 
 // Serve the public folder
 app.use(express.static('public'));
 
 // Routing
 const greetingRouter = require('./routes/greeting.routes');
-app.use('/greeting', greetingRouter);
-// app.get('/greeting', async function (req, res) {
-//   const results = await client
-//     .query('SELECT * FROM Greeting')
-//     .then(payload => {
-//       return payload.rows;
-//     })
-//     .catch(() => {
-//       throw new Error('Query failed.');
-//     });
-//   res.setHeader('Content-Type', 'application/json');
-//   res.status(200);
-//   res.send(JSON.stringify(results));
-// });
-
+app.use(greetingRouter);
 
 app.get('/', async (req, res) => {
   res.setHeader('Content-Type', "text/html");
@@ -38,8 +17,8 @@ app.get('/', async (req, res) => {
 });
 
 (async () => {
-  await client.connect();
-  
+  const db = require('./util/db');
+  await db.connect();
   app.listen(PORT, () => {
     console.log(`Server is listening on http://localhost:${PORT}.`);
   });

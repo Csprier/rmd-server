@@ -5,4 +5,8 @@ fetch('/greeting')
     let target = document.getElementById('message');
     target.innerHTML = data[0].message;
   })
-  .catch(e => console.error(e));
+  .catch(e => {
+    console.error(e)
+    let target = document.getElementById('message');
+    target.innerHTML = e;
+  });

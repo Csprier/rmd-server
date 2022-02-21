@@ -1,9 +1,8 @@
 const greetingRouter = require('express').Router();
-const db = require('util/db');
+const db = require('../util/db');
 
-app.get('/greeting', async function (req, res) {
-  const results = await client
-    .query('SELECT * FROM Greeting')
+greetingRouter.get('/greeting', async function (req, res) {
+  const results = await db.query('SELECT * FROM Greeting')
     .then(payload => {
       return payload.rows;
     })
@@ -14,3 +13,5 @@ app.get('/greeting', async function (req, res) {
   res.status(200);
   res.send(JSON.stringify(results));
 });
+
+module.exports = greetingRouter;

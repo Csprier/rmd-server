@@ -1,3 +1,5 @@
+const { Client } = require('pg');
+
 // Connect to psql
 const db = new Client({
   password: 'root',
@@ -5,4 +7,4 @@ const db = new Client({
   host: 'database'
 });
 
-module.exports = { db };
+module.exports = db;
