@@ -3,29 +3,32 @@ const express = require('express');
 const app = express();
 const PORT = 8080;
 
-// Connect to psql
-const client = new Client({
-  password: 'root',
-  user: 'root',
-  host: 'database'
-});
+// // Connect to psql
+// const client = new Client({
+//   password: 'root',
+//   user: 'root',
+//   host: 'database'
+// });
 
 // Serve the public folder
 app.use(express.static('public'));
- 
-app.get('/greeting', async function (req, res) {
-  const results = await client
-    .query('SELECT * FROM Greeting')
-    .then(payload => {
-      return payload.rows;
-    })
-    .catch(() => {
-      throw new Error('Query failed.');
-    });
-  res.setHeader('Content-Type', 'application/json');
-  res.status(200);
-  res.send(JSON.stringify(results));
-});
+
+// Routing
+const greetingRouter = require('./routes/greeting.routes');
+app.use('/greeting', greetingRouter);
+// app.get('/greeting', async function (req, res) {
+//   const results = await client
+//     .query('SELECT * FROM Greeting')
+//     .then(payload => {
+//       return payload.rows;
+//     })
+//     .catch(() => {
+//       throw new Error('Query failed.');
+//     });
+//   res.setHeader('Content-Type', 'application/json');
+//   res.status(200);
+//   res.send(JSON.stringify(results));
+// });
 
 
 app.get('/', async (req, res) => {
