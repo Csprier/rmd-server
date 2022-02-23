@@ -1,5 +1,5 @@
 # base imagine
-FROM node:14-alpine3.12
+FROM node:16-alpine
 # Create app directory, this is location inside your container
 WORKDIR /usr/src/app
 # Install app dependencies
